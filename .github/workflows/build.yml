@@ -1,9 +1,9 @@
-name: CI
+name: Build Kivy App
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -45,7 +45,6 @@ jobs:
 
       - name: Build with Buildozer
         run: |
-          buildozer init
           buildozer android debug  # Adjust the buildozer command as needed for your project
 
       - name: Upload artifacts
