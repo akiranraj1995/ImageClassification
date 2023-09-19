@@ -26,9 +26,14 @@ jobs:
         run: |
           echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_ENV
 
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v2
+        with:
+          sdk-platform: "30"  # Adjust the version as needed
+
       - name: Install Android Build Tools
         run: |
-          echo "y" | sdkmanager "build-tools;30.0.3"  # Adjust the version as needed
+          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;30.0.3"  # Adjust the version as needed
 
       - name: Cache Buildozer global directory
         uses: actions/cache@v2
