@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04LTS
+    runs-on: ubuntu-22.04
 
     strategy:
       matrix:
@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Set up Node.js
-        uses: actions/setup-node@v2  # Use the latest version of setup-node
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -35,15 +35,21 @@ jobs:
             ${{ runner.os }}-${{ env.date }}-
             ${{ runner.os }}-
 
+      - name: Install Buildozer
+        run: |
+          pip install buildozer
+
+      - name: Install Python Dependencies
+        run: |
+          pip install kivy==2.2.1 pyjnius==1.5.0 pillow numpy plyer cython==0.29.33
+
       - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
-        with:
-          command: buildozer android debug
-          buildozer_version: stable
+        run: |
+          buildozer init
+          buildozer android debug  # Adjust the buildozer command as needed for your project
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: package
-          path: ${{ steps.buildozer.outputs.filename }}
+          path: .buildozer/bin  # Adjust the path to match your buildozer output directory
