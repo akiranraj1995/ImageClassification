@@ -23,7 +23,7 @@ class ImageClassifierApp(App):
         self.title = "Fruits Image Classification App"
 
         # Load labels from APK assets
-        labels_path = resource_find("assets/labels.txt")  # Updated asset access
+        labels_path = resource_find("labels.txt")  # Updated asset access
         self.labels = self.load_labels(labels_path)
 
         # Use a ScrollView to make the UI scrollable
@@ -62,7 +62,7 @@ class ImageClassifierApp(App):
 
         # Create an instance of TensorFlowModel and load the model
         self.model = TensorFlowModel()
-        model_path = resource_find("assets/model.tflite")  # Updated asset access
+        model_path = resource_find("model.tflite")  # Updated asset access
         self.model.load(model_path)
 
         return scroll_view  # Return the ScrollView as the root widget
