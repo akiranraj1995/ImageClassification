@@ -1,4 +1,4 @@
-name: CI
+name: Build Kivy App
 
 on:
   push:
@@ -25,6 +25,10 @@ jobs:
       - name: Get Date
         run: |
           echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_ENV
+
+      - name: Install Android Build Tools
+        run: |
+          echo "y" | sdkmanager "build-tools;30.0.3"  # Adjust the version as needed
 
       - name: Cache Buildozer global directory
         uses: actions/cache@v2
